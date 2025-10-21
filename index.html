@@ -1,0 +1,163 @@
+{% extends 'layout.html' %}
+{% block head %}
+<title>Halaman Home</title>
+{% endblock %}
+{% block body %}
+<table>
+            <thead>
+                <tr>
+                    <th scope='col'>ID</th>
+                    <th scope='col'>Username</th>
+                    <th scope='col'>Password</th>
+                    <th scope='col'>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- looping baris data -->
+                {% for row in users %}
+                <tr>
+                    <th scope='row'>{{row.0}}</th>
+                    <td>{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+         </table>
+    <section>
+        <!-- Main Banner -->
+        <div class="main-banner" id="top">
+            <img src="./static/index.jpg" alt="Banner Image" id="banner-image">
+        </div>
+
+        <!-- Content -->
+        <div class="container" id="TRENDING">
+            <h1>My Project</h1>
+            <div class="article">
+                <img alt="project" src="./static/index_cv_logo.jpg" />
+                <div class="article-content">
+                    <div class="article-title">
+                        Project CV dalam bentuk HTML
+                    </div>
+                    <div class="article-description">
+                        Project Pengembangan Web Semester 1
+                    </div>
+                    <button class="read-more">
+                        <a href="./static/cv.html">READ ARTICLE</a>
+                    </button>
+                </div>
+            </div>
+            <div class="article">
+                <img alt="project" src="./static/soon_logo.jpg" />
+                <div class="article-content">
+                    <h1 class="article-title">Coming Soon</h1>
+                    <p class="article-description">Wait For It</p>
+                    <button class="read-more">
+                        <a href="./static/soon.html">READ ARTICLE</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div>jevanio.12345@gmail.com</div>
+    </footer>
+
+    <script>
+        // Navbar hide on scroll down, show on scroll up
+        let lastScrollTop = 0;
+        const navbar = document.getElementById("navbar");
+
+        window.addEventListener("scroll", function () {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop) {
+                // Scroll down: hide navbar
+                navbar.style.top = "-60px"; // Sesuaikan nilai dengan tinggi navbar Anda
+            } else {
+                // Scroll up: show navbar
+                navbar.style.top = "0";
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Cegah nilai negatif
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Fade-in animation on scroll
+const fadeInElements = document.querySelectorAll('.article');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.transition = "opacity 1.5s";
+            entry.target.style.opacity = 1;
+        }
+    });
+}, {
+    threshold: 0.1
+});
+
+fadeInElements.forEach(element => {
+    element.style.opacity = 0; // Set initial state to transparent
+    observer.observe(element);
+});
+
+// Bouncing animation on button hover
+document.querySelectorAll('.read-more').forEach(button => {
+    button.addEventListener('mouseover', () => {
+        button.style.position = "relative";
+        button.style.transition = "transform 0.2s";
+        button.style.transform = "translateY(-5px)";
+    });
+    button.addEventListener('mouseout', () => {
+        button.style.transform = "translateY(0)";
+    });
+});
+
+// Header logo animation on load
+window.addEventListener('load', () => {
+    const logo = document.querySelector('.logo');
+    if (logo) {
+        logo.style.transition = "transform 2s";
+        logo.style.transform = "scale(1.1)";
+        setTimeout(() => {
+            logo.style.transform = "scale(1)";
+        }, 2000);
+    }
+});
+// Get the modal and the image
+const modal = document.getElementById('news-modal');
+const bannerImage = document.getElementById('banner-image');
+const closeButton = document.querySelector('.close-button');
+
+// Open the modal when the image is clicked
+bannerImage.addEventListener('click', () => {
+    modal.style.display = 'flex';
+});
+
+// Close the modal when the close button is clicked
+closeButton.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+// Close the modal if the user clicks outside of the modal content
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+function toggleNav() {
+        const nav = document.querySelector('.nav-ul');
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    }
+    </script>
+    {% endblock %}
