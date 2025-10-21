@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Pribadi - Ong, Jevanio Atansya</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="project.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="navbar" id="navbar">
+        <div class="logo">
+            <strong>Ong, Jevanio Atansya</strong>
+        </div>
+        <div>
+            <nav>
+                <ul class="nav-ul">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="Project.html">Project</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<div class="outer fade-in" id="top">
+    <div class="container" id="TRENDING">
+        <h1 style="text-align: center; margin-bottom: 50px;">My Project</h1>
+        <div class="article">
+            <img alt="project" src="index_cv_logo.jpg" />
+            <div class="article-content">
+                <div class="article-title">
+                    Project CV dalam bentuk HTML
+                </div>
+                <div class="article-description">
+                    Project Pengembangan Web Semester 1
+                </div>
+                <button class="read-more">
+                    <a href="cv.html">READ ARTICLE</a>
+                </button>
+            </div>
+        </div>
+        <div class="article">
+            <img alt="project" src="soon_logo.jpg" />
+            <div class="article-content">
+                <h1 class="article-title">Coming Soon</h1>
+                <p class="article-description">Wait For It</p>
+                <button class="read-more">
+                    <a href="Project.html">READ ARTICLE</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer class="fade-in" style="margin-top: 420px;">
+        <div>jevanio.12345@gmail.com</div>
+    </footer>
+
+    <script>
+        // Navbar hide on scroll down, show on scroll up
+        let lastScrollTop = 0;
+        const navbar = document.getElementById("navbar");
+
+        window.addEventListener("scroll", function () {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop) {
+                navbar.style.top = "-60px"; // Sesuaikan nilai dengan tinggi navbar Anda
+            } else {
+                navbar.style.top = "0";
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Cegah nilai negatif
+        });
+
+        // Animasi fade-in dengan Intersection Observer
+        const fadeInElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show'); // Tambahkan kelas untuk efek
+                    observer.unobserve(entry.target); // Berhenti mengamati setelah muncul
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        fadeInElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Animating gallery images on page load
+        window.onload = function() {
+            let galleryItems = document.querySelectorAll('.gallery-item');
+            let delay = 0;
+
+            galleryItems.forEach((item, index) => {
+                // Hide images initially
+                item.style.transform = 'scale(0)';
+                item.style.opacity = 0;
+                item.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
+
+                // Stagger the animation for each image
+                setTimeout(() => {
+                    item.style.transform = 'scale(1)';
+                    item.style.opacity = 1;
+                }, delay);
+                delay += 300; // Staggering the animation for each image
+            });
+        };
+
+        function toggleNav() {
+        const nav = document.querySelector('.nav-ul');
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    </script>
+</body>
+
+</html>
